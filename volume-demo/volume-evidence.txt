@@ -1,0 +1,18 @@
+Docker Persistent Volume Demonstration
+
+Volume name:
+cse644-persistent-volume
+
+Data stored:
+Persistent data created by Rod Raemon Alvero for CSE644
+
+Test:
+1. Created the named Docker volume.
+2. Mounted it to the volume-writer container.
+3. Wrote homework.txt to the mounted directory.
+4. Removed the original volume-writer container.
+5. Mounted the same volume in a new temporary container.
+6. Confirmed that homework.txt remained available.
+
+Conclusion:
+The data survived container removal because it was stored in a Docker named volume.

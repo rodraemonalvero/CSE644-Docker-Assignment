@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAProxy and Nginx</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f9ff;
+            color: #1f2937;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .card {
+            max-width: 760px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        h1 {
+            color: #0369a1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>HAProxy Successfully Forwarded This Request</h1>
+
+        <p>
+            This webpage is hosted by the backend Nginx container.
+        </p>
+
+        <p>
+            The browser connected to HAProxy, and HAProxy forwarded
+            the request to Nginx through a Docker network.
+        </p>
+
+        <p>
+            Student: Rod Raemon Alvero
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+CSE644 Docker Networking Demonstration
+
+1. User-defined bridge network
+Network: cse644-bridge
+Containers on the same network communicated using the container name.
+
+2. Network inspection
+docker network inspect was used to display the network driver, subnet,
+gateway, and connected containers.
+
+3. Isolated network
+A container on cse644-isolated could not initially communicate with
+bridge-web because they were connected to separate Docker networks.
+
+4. Explicit connection
+After bridge-web was explicitly connected to cse644-isolated, communication
+between the containers succeeded.
+
+5. Host network
+The Docker host network was demonstrated or inspected based on the host
+networking support available in Docker Desktop for Windows.
