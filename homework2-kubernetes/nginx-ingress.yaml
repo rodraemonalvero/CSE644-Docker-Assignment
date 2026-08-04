@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+
+metadata:
+  name: custom-nginx-ingress
+  namespace: cse644
+
+spec:
+  ingressClassName: traefik
+
+  rules:
+    - host: cse644.localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: custom-nginx-service
+                port:
+                  number: 80

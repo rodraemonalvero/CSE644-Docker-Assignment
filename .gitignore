@@ -19,3 +19,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Local Kubernetes Secret — never commit
+homework2-kubernetes/python-secret.yaml

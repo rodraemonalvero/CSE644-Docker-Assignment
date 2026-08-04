@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: python-web
+  namespace: cse644
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: python-web
+
+  template:
+    metadata:
+      labels:
+        app: python-web
+
+    spec:
+      containers:
+      - name: python-web
+        image: rodraemonalvero/cse644-python-web:2.0
+        imagePullPolicy: IfNotPresent
+
+        ports:
+        - containerPort: 8888
+
+        env:
+        - name: PUBLIC_MESSAGE
+          valueFrom:
+            configMapKeyRef:
+              name: python-config
+              key: PUBLIC_MESSAGE
+
+        - name: APP_ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: python-config
+              key: APP_ENVIRONMENT
+
+        - name: APP_PROTECTED_VALUE
+          valueFrom:
+            secretKeyRef:
+              name: python-secret
+              key: APP_PROTECTED_VALUE
+
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 8888
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 2
+          failureThreshold: 3
+
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 8888
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 2
+          failureThreshold: 3
+
+        volumeMounts:
+        - name: app-storage
+          mountPath: /data
+
+      volumes:
+      - name: app-storage
+        persistentVolumeClaim:
+          claimName: nginx-storage

@@ -16,9 +16,26 @@ interactive container access, custom image creation, a Python web application,
 HAProxy reverse proxying, persistent volumes, Docker networking, Docker Hub
 publishing, and GitHub version control.
 
+
 ## Repository Structure
 
-Explain each project folder here.
+custom-nginx/
+- Dockerfile and customized HTML page for the Nginx container.
+
+python-web/
+- Flask web application, Dockerfile, and requirements for the Python web server.
+
+haproxy-nginx/
+- Docker Compose project demonstrating HAProxy forwarding requests to an Nginx backend.
+
+networking-demo/
+- Files demonstrating Docker bridge, isolated, and host networking.
+
+volume-demo/
+- Demonstration of Docker volumes and persistent storage.
+
+screenshots/
+- All screenshots captured during the assignment.
 
 ## Part 1: Docker Installation
 

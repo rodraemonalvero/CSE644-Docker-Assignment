@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: haproxy-config
+  namespace: cse644
+
+data:
+  haproxy.cfg: |
+    global
+        log stdout format raw local0
+
+    defaults
+        log global
+        mode http
+        option httplog
+        timeout connect 5s
+        timeout client 30s
+        timeout server 30s
+
+    frontend http_front
+        bind *:8080
+        default_backend nginx_backend
+
+    backend nginx_backend
+        balance roundrobin
+        server nginx-service custom-nginx-service.cse644.svc.cluster.local:80 check
