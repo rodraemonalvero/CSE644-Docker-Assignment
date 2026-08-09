@@ -6,5 +6,5 @@ metadata:
   namespace: cse644
 
 data:
-  PUBLIC_MESSAGE: "CSE644 Assignment 03 deployed through GitOps."
+  PUBLIC_MESSAGE: "GitOps change successfully reconciled by Argo CD."
   APP_ENVIRONMENT: "Docker Desktop Kubernetes - Argo CD Managed"
