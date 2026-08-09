@@ -4,6 +4,8 @@ kind: Service
 metadata:
   name: python-web-service
   namespace: cse644
+  labels:
+    app: python-web
 
 spec:
   type: ClusterIP
@@ -12,6 +14,7 @@ spec:
     app: python-web
 
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 8888
       targetPort: 8888

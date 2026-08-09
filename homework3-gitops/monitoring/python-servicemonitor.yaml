@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+
+metadata:
+  name: python-web-monitor
+  namespace: monitoring
+  labels:
+    release: monitoring
+
+spec:
+  namespaceSelector:
+    matchNames:
+      - cse644
+
+  selector:
+    matchLabels:
+      app: python-web
+
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
