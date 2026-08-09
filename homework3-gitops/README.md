@@ -49,16 +49,16 @@ Python Web Pod          Python Web Service
     :8888                    :8888
        |
        v
-   /metrics
+    /metrics
        |
        v
-ServiceMonitor
+ ServiceMonitor
        |
        v
-  Prometheus
+   Prometheus
        |
        v
-    Grafana
+     Grafana
 ```
 
 GitHub contains the desired Kubernetes configuration. Argo CD monitors the repository and automatically synchronizes the desired state into the Kubernetes cluster.
@@ -82,6 +82,7 @@ homework3-gitops/
 |   +-- application.yaml
 |
 +-- monitoring/
+|   +-- grafana-dashboard.json
 |   +-- python-servicemonitor.yaml
 |
 +-- screenshots/
@@ -96,6 +97,9 @@ homework3-gitops/
 |   +-- Screenshot09_Prometheus_Custom_Metrics.png
 |   +-- Screenshot10_Grafana-Dashboard-http-request-rate.png
 |   +-- Screenshot11_Grafana_Workload_Activity.png
+|   +-- Screenshot12_Kubernetes_Environment.png
+|   +-- Screenshot13_GitHub_Revision_History.png
+|   +-- Screenshot14_Cleanup_Verification.png
 |
 +-- README.md
 ```
@@ -331,6 +335,8 @@ The monitoring components were verified with:
 kubectl get pods -n monitoring
 ```
 
+All monitoring components were confirmed to be running successfully in the `monitoring` namespace.
+
 ---
 
 ## 11. Application Metrics
@@ -372,6 +378,8 @@ The target was verified as:
 UP
 ```
 
+This confirms that Prometheus can successfully scrape application metrics from the Kubernetes workload.
+
 ---
 
 ## 12. Custom Application Metric
@@ -409,7 +417,7 @@ The metric is useful because it demonstrates real application activity rather th
 
 Grafana was connected to Prometheus and used to visualize the application metric.
 
-Dashboard:
+The dashboard is named:
 
 ```text
 CSE644 Application Observability
@@ -423,7 +431,21 @@ The request-rate panel is titled:
 CSE644 Python Web - Request Rate
 ```
 
-Prometheus data from `cse644_http_requests_total` is used to show how request activity changes over time.
+Prometheus data from:
+
+```text
+cse644_http_requests_total
+```
+
+is used to show how request activity changes over time.
+
+The Grafana dashboard was also exported and stored in the repository as:
+
+```text
+homework3-gitops/monitoring/grafana-dashboard.json
+```
+
+Keeping the dashboard JSON in Git makes the monitoring configuration reproducible and provides a version-controlled copy of the visualization.
 
 ---
 
@@ -448,14 +470,16 @@ User Requests
 Python Application
      |
      v
-/metrics
+   /metrics
      |
      v
-Prometheus
+ Prometheus
      |
      v
 Grafana Dashboard
 ```
+
+The workload demonstration confirms that changes in application activity can be observed through the monitoring system.
 
 ---
 
@@ -480,6 +504,10 @@ A ServiceMonitor was used because the kube-prometheus-stack includes the Prometh
 ### Application-Level Metrics
 
 A custom HTTP request metric was selected instead of relying only on infrastructure metrics. This provides visibility into actual application behavior.
+
+### Grafana Dashboard Export
+
+The Grafana dashboard was exported as JSON and stored in Git so that the observability configuration can be retained and reproduced.
 
 ---
 
@@ -600,6 +628,24 @@ Shows the Grafana request-rate visualization based on application metrics.
 
 Shows Grafana responding to generated application workload and demonstrates observable application behavior.
 
+### Screenshot 12 — Kubernetes Environment
+
+`Screenshot12_Kubernetes_Environment.png`
+
+Shows the local Kubernetes environment and supporting tools used to run the application and monitoring stack.
+
+### Screenshot 13 — GitHub Revision History
+
+`Screenshot13_GitHub_Revision_History.png`
+
+Shows the Git revision history containing the major GitOps lifecycle commits, including deployment configuration, Git-driven changes, controlled failure, recovery, monitoring, and assignment documentation.
+
+### Screenshot 14 — Cleanup Verification
+
+`Screenshot14_Cleanup_Verification.png`
+
+Shows the completed Homework 3 repository structure and verifies that the Git working tree is clean after all assignment files and evidence were committed.
+
 ---
 
 ## 19. Git Revision History
@@ -607,22 +653,68 @@ Shows Grafana responding to generated application workload and demonstrates obse
 The repository contains separate commits demonstrating the major GitOps lifecycle steps, including:
 
 ```text
+Add HW3 GitOps application and Prometheus metrics
 Add Argo CD application configuration
 Update application message through GitOps
 Introduce controlled deployment failure
 Recover application by restoring valid image
 Add Prometheus monitoring for Python application
 Add Homework 3 GitOps and observability evidence
+Add Homework 3 GitOps and observability documentation
 ```
 
-This revision history demonstrates that application changes, failure, recovery, and monitoring configuration were tracked through Git.
+This revision history demonstrates that application changes, failure, recovery, monitoring configuration, evidence, and documentation were tracked through Git.
+
+The Git history provides evidence of the GitOps workflow rather than presenting only the final application state.
 
 ---
 
-## 20. Conclusion
+## 20. Assignment Verification
+
+The final repository includes:
+
+- Kubernetes application manifests
+- Argo CD Application configuration
+- Prometheus ServiceMonitor configuration
+- Exported Grafana dashboard
+- GitOps deployment evidence
+- Git-driven configuration change evidence
+- Live drift and self-healing evidence
+- Controlled failure and recovery evidence
+- Prometheus monitoring evidence
+- Custom application metrics evidence
+- Grafana visualization evidence
+- Workload activity evidence
+- Git revision history
+- Final repository verification
+
+The final Git working tree was verified with:
+
+```powershell
+git status
+```
+
+with the expected result:
+
+```text
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+```
+
+---
+
+## 21. Conclusion
 
 This assignment demonstrates a complete local GitOps and observability workflow.
 
-Argo CD manages the desired Kubernetes application state from Git and automatically reconciles configuration changes and drift. A controlled deployment failure demonstrated how Git history can be used as part of an operational recovery workflow.
+Argo CD manages the desired Kubernetes application state from Git and automatically reconciles configuration changes and drift. This demonstrates the principle of using Git as the source of truth rather than relying on manual changes to Kubernetes resources.
 
-Prometheus provides application-level metrics collection, while Grafana visualizes application behavior. Together, Git, Argo CD, Kubernetes, Prometheus, and Grafana provide a basic example of declarative deployment management and observable cloud-native operations.
+A controlled deployment failure demonstrated how Git history and declarative configuration can be used as part of an operational recovery workflow. The application was intentionally placed into an `ImagePullBackOff` condition and then recovered by restoring the correct desired state through Git.
+
+Prometheus provides application-level metrics collection through the application's `/metrics` endpoint and the Kubernetes ServiceMonitor. Grafana visualizes the resulting application behavior, including HTTP request activity.
+
+The Grafana dashboard was exported as JSON and stored with the assignment configuration so that the observability setup is also represented in the repository.
+
+Together, Git, GitHub, Argo CD, Kubernetes, Prometheus, and Grafana provide a working example of declarative deployment management, automated reconciliation, failure recovery, monitoring, and application observability.
