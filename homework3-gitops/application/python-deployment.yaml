@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: python-web
-          image: rodraemonalvero/cse644-python-web:3.0
+          image: rodraemonalvero/cse644-python-web:99.99-broken
           imagePullPolicy: IfNotPresent
 
           ports:
